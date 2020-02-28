@@ -1,0 +1,41 @@
+---
+# Stackmate project configuration
+framework: sinatra
+# The repository to deploy from
+repository: git@github.com:stackmate-io/sample-app-sinatra.git
+# The cloud provider to use
+provider: aws
+# The region to deploy to
+region: eu-central-1
+# The provider credentials to use
+providers:
+  aws:
+    access_key: "{{ lookup('env', 'STACKMATE_ACCESS_KEY') }}"
+    secret: "{{ lookup('env', 'STACKMATE_SECRET') }}"
+
+# environments
+production: &default_environment
+    # branch to deploy
+    branch: master
+    # domain to use
+    domain: sinatra.ezploy.eu
+    # documentroot in the servers
+    documentroot: /var/www/sinatra-app
+    # environment variables
+    environment:
+      APP_ENV: production
+    # deployment pipeline
+    pipeline:
+      restart:
+        - puma
+    # services to use
+    services:
+      - name: sinatra-app-server
+        type: application
+        size: t2.nano
+        dependencies:
+          - type: nginx
+          - type: puma
+          - type: ruby
+        storage: 20l
+
