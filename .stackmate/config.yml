@@ -12,30 +12,41 @@ providers:
   aws:
     access_key: "{{ lookup('env', 'STACKMATE_ACCESS_KEY') }}"
     secret: "{{ lookup('env', 'STACKMATE_SECRET') }}"
+  github:
+    access_key: "{{ lookup('env', 'STACKMATE_GITHUB_ID') }}"
+    secret: "{{ lookup('env', 'STACKMATE_GITHUB_SECRET') }}"
+    token: "{{ lookup('env', 'STACKMATE_GITHUB_TOKEN') }}"
+  slack:
+    secret: "{{ lookup('env', 'STACKMATE_SLACK_TOKEN') }}"
+  email:
+    host: smtp.sendgrid.net
+    port: 587
+    access_key: apikey
+    secret: "{{ lookup('env', 'STACKMATE_SENDGRID_TOKEN') }}"
 
 # environments
-production: &default_environment
-    # branch to deploy
-    branch: master
-    # domain to use
-    domain: sinatra.ezploy.eu
-    # documentroot in the servers
-    documentroot: /var/www/sinatra-app
-    # environment variables
-    environment:
-      APP_ENV: production
-    # deployment pipeline
-    pipeline:
-      restart:
-        - puma
-    # services to use
-    services:
-      - name: sinatra-app-server
-        type: application
-        size: t2.nano
-        dependencies:
-          - type: nginx
-          - type: puma
-          - type: ruby
-        storage: 20l
-
+production:
+  # branch to deploy
+  branch: master
+  # domain to use
+  domain: sinatra.ezploy.eu
+  # documentroot in the servers
+  documentroot: /var/www/sinatra-app
+  # environment variables
+  environment:
+    RACK_ENV: production
+    PORT: 4000
+  # deployment pipeline
+  pipeline:
+    restart:
+      - puma
+  # services to use
+  services:
+    - name: sinatra-app-server
+      type: application
+      size: t2.nano
+      dependencies:
+        - type: nginx
+        - type: puma
+        - type: ruby
+      storage: 20
