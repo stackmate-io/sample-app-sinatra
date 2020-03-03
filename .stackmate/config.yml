@@ -36,8 +36,12 @@ production:
   environment:
     RACK_ENV: production
     PORT: 4000
+    DB_URL: mysql://mitsos:test@av.gr/vasi
+
   # deployment pipeline
   pipeline:
+    build:
+      - bundle install --production
     restart:
       - puma
   # services to use
