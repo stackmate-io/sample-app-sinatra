@@ -36,7 +36,6 @@ production:
   environment:
     RACK_ENV: production
     PORT: 4000
-    DB_URL: mysql://mitsos:test@av.gr/vasi
 
   # deployment pipeline
   pipeline:
