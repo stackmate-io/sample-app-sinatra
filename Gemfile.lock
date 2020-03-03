@@ -27,7 +27,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (= 2.1.4)
   sinatra
   sinatra-contrib
 
