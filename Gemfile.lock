@@ -27,6 +27,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  backports
   sinatra
   sinatra-contrib
 
