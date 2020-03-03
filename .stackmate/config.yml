@@ -40,7 +40,7 @@ production:
   # deployment pipeline
   pipeline:
     build:
-      - bundle install --production
+      - ./bin/bundle install --production
     restart:
       - puma
   # services to use
