@@ -44,6 +44,9 @@ production:
       - ./bin/bundle install
     restart:
       - puma
+    after:
+      reload:
+        - nginx
   # services to use
   services:
     - name: sinatra-app-server
