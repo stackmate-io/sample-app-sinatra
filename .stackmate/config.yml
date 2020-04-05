@@ -42,11 +42,12 @@ production:
     build:
       - ./bin/bundle config set deployment 'true'
       - ./bin/bundle install
-    restart:
-      - puma
     after:
+      restart:
+        - puma
       reload:
         - nginx
+
   # services to use
   services:
     - name: sinatra-app-server
